@@ -1,0 +1,29 @@
+{
+  "name": "scheduleBotNode",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^4.0.1",
+    "bluebird": "latest",
+    "convert-excel-to-json": "^1.6.1",
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "express": "~4.16.1",
+    "fs": "0.0.1-security",
+    "http-errors": "~1.6.3",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.7.11",
+    "morgan": "~1.9.1",
+    "node-telegram-bot-api": "^0.40.0",
+    "pug": "2.0.0-beta11",
+    "winston": "^3.2.1",
+    "xlsx": "^0.15.3"
+  }
+}
