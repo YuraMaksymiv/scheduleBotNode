@@ -5,11 +5,12 @@ module.exports = async (req, res) => {
     try {
         const dayNames = ["Понеділок", "Вівторок", "Середа", "Четвер", "П'ятниця"];
         const times = ["9.30-10.05", "10.20-11.55", "12.10-13.45", "14.30-16.05", "16.20-17.35"];
+        const file = req.file;
 
         let result;
         let table = {};
         let workbook = excelToJson({
-            sourceFile: 'files/rozklad_idtd.xls'//file should be get from request
+            source: file.buffer
         });
 
         for (const workBookKey in workbook) {

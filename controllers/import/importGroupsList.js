@@ -4,10 +4,12 @@ module.exports = async (req, res) => {
     req.log.info("Start importGroupsList controller");
     try {
         let shedule = [];
+        const file = req.file;
+        const sectionName = req.query.section;
 
         let groups = excelToJson({
-            sourceFile: 'files/rozklad_imakit.xls',
-            range: 'A10:Z10'
+            source: file.buffer,
+            range: 'A1:Z1'
         });
         let all = [];
 
@@ -43,14 +45,14 @@ module.exports = async (req, res) => {
             });
         }
         let toDB = {
-            section: "ІМАКІТ",
+            section: sectionName,
             groups: groupsToDB
         };
-        await req.mongoConnection.addGroup(toDB);
+        await req.mongoConnection.updateGroup(toDB);
 
         return res.json({
             code: 200,
-            data: all
+            data: true
         });
     } catch (e) {
         console.log(e);
