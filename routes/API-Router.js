@@ -4,7 +4,7 @@ const groupsRouter = require('./groups');
 const userRouter = require('./user');
 const importRouter = require('./import');
 
-ApiRouter.use('/shedule', scheduleRouter);
+ApiRouter.use('/schedule', scheduleRouter);
 ApiRouter.use('/groups', groupsRouter);
 ApiRouter.use('/user', userRouter);
 ApiRouter.use('/import', importRouter);

@@ -30,7 +30,7 @@ module.exports = async (req, res) => {
             });
         });
 
-        if(!rightPassword) if(!user) {
+        if(!rightPassword) {
             req.log.error(`Wrong password`);
             let err = new Error('Wrong password');
             err.code = 422;
