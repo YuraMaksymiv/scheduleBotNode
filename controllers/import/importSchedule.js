@@ -43,13 +43,14 @@ module.exports = async (req, res) => {
                 let currentRow = newWorkbook[i];
                 let nextRow = newWorkbook[i+1];
 
-                for (const rowKey in currentRow) {
-                    if(table[rowKey] && table[rowKey].days) {
-                        table[rowKey].days[day].lesson[lesson].nameOfLesson[0] = currentRow[rowKey];
-                        if(!nextRow[rowKey]) table[rowKey].days[day].lesson[lesson].nameOfLesson[1] = currentRow[rowKey];
-                        else if(nextRow[rowKey]) table[rowKey].days[day].lesson[lesson].nameOfLesson[1] = nextRow[rowKey];
+                if(nextRow) {
+                    for (const rowKey in currentRow) {
+                        if(table[rowKey] && table[rowKey].days) {
+                            table[rowKey].days[day].lesson[lesson].nameOfLesson[0] = currentRow[rowKey];
+                            if(!nextRow[rowKey]) table[rowKey].days[day].lesson[lesson].nameOfLesson[1] = currentRow[rowKey];
+                            else if(nextRow[rowKey]) table[rowKey].days[day].lesson[lesson].nameOfLesson[1] = nextRow[rowKey];
+                        }
                     }
-
                 }
 
                 if(count === 5) { //check day
