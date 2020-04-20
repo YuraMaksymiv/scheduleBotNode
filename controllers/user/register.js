@@ -28,16 +28,11 @@ module.exports = async (req, res) => {
             }
         });
 
-        res.json({
-            code: 200,
-            data: true
-        });
+        res.json(true);
 
     } catch (e) {
         console.log(e);
-        res.json({
-            code: e.status,
-            data: e.message
-        });
+        res.statusCode = e.code;
+        res.json(e.message);
     }
 };

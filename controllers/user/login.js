@@ -39,16 +39,11 @@ module.exports = async (req, res) => {
 
         const accessToken = tokinazer(user.userId, (user.userType ? user.userType : ''));
 
-        res.json({
-            code: 200,
-            data: accessToken
-        });
+        res.json(accessToken);
 
     } catch (e) {
         console.log(e);
-        res.json({
-            code: e.code,
-            data: e.message
-        });
+        res.statusCode = e.code;
+        res.json(e.message);
     }
 };

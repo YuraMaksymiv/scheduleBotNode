@@ -105,15 +105,10 @@ module.exports = async (req, res) => {
         }
 
 
-        return res.json({
-            code: 200,
-            data: true
-        });
+        return res.json(true);
     } catch (e) {
         console.log(e);
-        res.json({
-            code: e.code,
-            data: e.message
-        });
+        res.statusCode = e.code
+        res.json(e.message);
     }
 };
