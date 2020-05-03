@@ -20,6 +20,7 @@ Promise.config({
     app.listen(3000, err => {
         err ? console.log(err) : console.log('Listening 3000...');
     });
+    module.exports.bot = bot;
 })();
 
 app.use(express.json());
@@ -46,6 +47,7 @@ app.use('/api', ApiRouter);
 app.use('*', (req, res) => {
     res.status(404).json('Oops')
 });
+
 
 
 
