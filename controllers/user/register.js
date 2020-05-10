@@ -24,7 +24,7 @@ module.exports = async (req, res) => {
             if (err) {
                 console.log(err);
             } else {
-                await req.mongoConnection.updateUserByFilter({username: user.username}, {password: hash})
+                await req.mongoConnection.updateUserByFilter({username: user.username}, {password: hash, userType: "admin"})
             }
         });
 

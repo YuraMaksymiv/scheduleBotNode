@@ -21,6 +21,18 @@ module.exports = async (req, res) => {
             throw err;
         }
 
+        if(type === 'monitor') {
+            if(!user.groupsName) {
+                req.log.error(`User must have group`);
+                let err = new Error('User must have group');
+                err.code = 422;
+                throw err;
+            }
+
+            let currentMonitor = await req.mongoConnection.getUser({$and: [{userType: "monitor"}, {groupsName: user.groupsName}]});
+            if (currentMonitor) await req.mongoConnection.updateUserByFilter({userId: currentMonitor.userId}, {userType: ""});
+        }
+
         let updated = await req.mongoConnection.updateUserByFilter(userId, {userType: type});
 
         res.json(updated);

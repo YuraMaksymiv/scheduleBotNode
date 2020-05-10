@@ -1,7 +1,7 @@
 const context = require('../../app');
 
 module.exports = async (req, res) => {
-    req.log.info(`Start sendNotificationToSection controller.`);
+    req.log.info(`Start sendNotificationToMonitors controller.`);
     try {
         let {notification, section} = req.body;
         if(!notification || !section) {
@@ -12,11 +12,11 @@ module.exports = async (req, res) => {
         }
         notification += "\nНадіслано адміністратором";
 
-        let users = await req.mongoConnection.getUsers({section: section});
+        let users = await req.mongoConnection.getUsersByFilter({$and: [{section: section}, {userType: "monitor"}]});
 
         if(!users || !users.length) {
-            req.log.error(`Failed to find users for current section`);
-            let err = new Error('Failed to find users for current section');
+            req.log.error(`Failed to find monitors for current section`);
+            let err = new Error('Failed to find monitors for current section');
             err.code = 404;
             throw err;
         }

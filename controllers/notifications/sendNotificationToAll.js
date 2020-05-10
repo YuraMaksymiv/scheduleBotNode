@@ -3,13 +3,14 @@ const context = require('../../app');
 module.exports = async (req, res) => {
     req.log.info(`Start sendNotificationToAll controller.`);
     try {
-        const {notification} = req.body;
+        let {notification} = req.body;
         if(!notification) {
             req.log.error(`Some fields are empty`);
             let err = new Error('Some fields are empty');
             err.code = 422;
             throw err;
         }
+        notification += "\nНадіслано адміністратором";
 
         let users = await req.mongoConnection.getUsers();
 
