@@ -8,7 +8,7 @@ const sendNotificationToUser = require('../controllers/notifications/sendNotific
 const sendNotificationToMonitors = require('../controllers/notifications/sendNotificationToMonitors');
 
 router.post('', tokenVerificator, sendNotificationToGroup);
-router.post('/:userId', tokenVerificator, sendNotificationToUser);
+router.post(':userId', tokenVerificator, sendNotificationToUser);
 router.post('/all', tokenVerificator, sendNotificationToAll);
 router.post('/section', tokenVerificator, sendNotificationToSection);
 router.post('/monitors', tokenVerificator, sendNotificationToMonitors);

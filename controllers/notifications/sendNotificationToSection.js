@@ -12,7 +12,7 @@ module.exports = async (req, res) => {
         }
         notification += "\nНадіслано адміністратором";
 
-        let users = await req.mongoConnection.getUsers({section: section});
+        let users = await req.mongoConnection.getUsersByFilter({section: section});
 
         if(!users || !users.length) {
             req.log.error(`Failed to find users for current section`);
