@@ -6,6 +6,6 @@ const tokenVerificator = require('../lib/tokenVerificator');
 
 const importSchedule = require('../controllers/import/importSchedule');
 
-router.post('/schedule', tokenVerificator, upload.single('file'), importSchedule);
+router.post('/schedule', upload.single('file'), importSchedule);
 
 module.exports = router;
