@@ -4,11 +4,13 @@ const groupsRouter = require('./groups');
 const userRouter = require('./user');
 const importRouter = require('./import');
 const notificationRouter = require('./notifications');
+const sandboxRouter = require('./sandbox');
 
 ApiRouter.use('/schedule', scheduleRouter);
 ApiRouter.use('/groups', groupsRouter);
 ApiRouter.use('/user', userRouter);
 ApiRouter.use('/import', importRouter);
 ApiRouter.use('/notification', notificationRouter);
+ApiRouter.use('/sandbox', sandboxRouter);
 
 module.exports = ApiRouter;
