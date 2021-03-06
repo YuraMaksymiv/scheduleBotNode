@@ -11,8 +11,8 @@ let mongoConnection, mongoConnectionNew, log, bot, socket;
     log.info("Logger ready");
     mongoConnectionNew = await mongoConnector();
     log.info("Mongo new ready");
-    mongoConnection = await mongoFunction();
-    log.info("Mongo ready");
+    // mongoConnection = await mongoFunction();
+    // log.info("Mongo ready");
     bot = await botFunction(mongoConnection, log, socket);
     log.info("Bot ready");
     app.listen(3000, err => {
