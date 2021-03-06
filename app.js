@@ -1,23 +1,16 @@
 const express = require('express');
 const app = express();
 const mongoFunction = require("./lib/mongo-util");
-const socketFunction = require("./lib/socket");
+const mongoConnector = require("./lib/database/connector");
 const logger = require('./lib/logger.js');
 const botFunction = require('./lib/bot');
-let mongoConnection, log, bot, socket;
-// const socketIo = require('socket.io');
-// const PORT = 2337;
-
-const Promise = require('bluebird');
-Promise.config({
-    cancellation: true
-});
+let mongoConnection, mongoConnectionNew, log, bot, socket;
 
 (async () => {
     log = await logger();
     log.info("Logger ready");
-    socket = await socketFunction();
-    log.info("Socket ready");
+    mongoConnectionNew = await mongoConnector();
+    log.info("Mongo new ready");
     mongoConnection = await mongoFunction();
     log.info("Mongo ready");
     bot = await botFunction(mongoConnection, log, socket);
@@ -52,20 +45,6 @@ app.use('/api', ApiRouter);
 app.use('*', (req, res) => {
     res.status(404).json('Oops')
 });
-
-// const server = socketIo(PORT);
-// server.on('connection', socket => {
-//     console.log('New user connected');
-//
-//     socket.on('*', (data) => {
-//         console.log('Emit from client');
-//         console.log(data);
-//     })
-//
-//     socket.on('disconnect', () => {
-//         console.log('The user disconnected');
-//     });
-// });
 
 
 
