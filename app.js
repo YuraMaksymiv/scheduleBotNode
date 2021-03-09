@@ -13,7 +13,7 @@ let mongoConnection, mongoConnectionNew, log, bot, socket;
     log.info("Mongo new ready");
     // mongoConnection = await mongoFunction();
     // log.info("Mongo ready");
-    bot = await botFunction(mongoConnection, log, socket);
+    bot = await botFunction();
     log.info("Bot ready");
     app.listen(3000, err => {
         err ? console.log(err) : console.log('Listening 3000...');
