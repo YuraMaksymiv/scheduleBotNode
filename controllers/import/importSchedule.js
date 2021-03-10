@@ -1,5 +1,6 @@
 const excelToJson = require('convert-excel-to-json');
 const importClient = require('../../lib/import-util');
+const {Schedule, Group} = require('../../lib/database');
 
 module.exports = async (req, res) => {
     req.log.info("Start importSchedule controller");
@@ -25,11 +26,11 @@ module.exports = async (req, res) => {
         }
 
         //save groups names in db
-        await req.mongoConnection.updateGroup(importedGroups);
+        await Group.updateGroup(importedGroups);
 
         //save schedule in db
         for (const key in importedSchedule) {
-            await req.mongoConnection.updateSchedule(importedSchedule[key])
+            await Schedule.updateSchedule(importedSchedule[key])
         }
 
         return res.json(true);

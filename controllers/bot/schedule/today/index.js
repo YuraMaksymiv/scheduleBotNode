@@ -2,12 +2,12 @@ const { WizardScene, Stage } = require('telegraf').Scenes;
 const {User, Schedule} = require('../../../../lib/database');
 
 const fs = require("fs");
-const list = JSON.parse(fs.readFileSync('../../../constants/lists.json', 'utf8'));
+const list = JSON.parse(fs.readFileSync('constants/lists.json', 'utf8'));
 
 
 async function sendMenu (ctx) {
     let keyboard = [["Ваш розклад"], ["Вибрати групу"], ["Показати розклад для групи"]];
-    let user = await User.getUser(ctx.update.message.id);
+    let user = await User.getUser(ctx.update.message.from.id);
     if(user.userType === "monitor") keyboard.unshift(['Старостам']);
     ctx.reply("Виберіть команду:", {
         "reply_markup": {

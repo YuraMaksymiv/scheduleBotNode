@@ -6,7 +6,7 @@ const {User, Group, Schedule} = require('../../../lib/database');
 
 async function sendMenu (ctx) {
     let keyboard = [["Ваш розклад"], ["Вибрати групу"], ["Показати розклад для групи"]];
-    let user = await User.getUser(ctx.update.message.id);
+    let user = await User.getUser(ctx.update.message.from.id);
     if(user.userType === "monitor") keyboard.unshift(['Старостам']);
     ctx.reply("Виберіть команду:", {
         "reply_markup": {
@@ -17,6 +17,25 @@ async function sendMenu (ctx) {
 };
 
 const getScheduleToWizard = new WizardScene('getScheduleTo',
+    async (ctx) => {
+        let groups = await Group.getGroups();
+        let sections = [];
+        groups.forEach(function (i) {
+            sections.push({
+                text: i.section,
+                callback_data: i.section + "_section_get"
+            });
+        });
+        const opts = {
+            reply_markup: {
+                inline_keyboard: [
+                    sections
+                ]
+            }
+        };
+        await ctx.reply('Виберіть інститут:', opts);
+        return ctx.wizard.next();
+    },
     async (ctx) => {
         let action = ctx.update.callback_query.data;
         action = action.split('_');
@@ -120,7 +139,7 @@ const getScheduleToWizard = new WizardScene('getScheduleTo',
         let action = ctx.update.callback_query.data;
         action = action.split('_');
 
-        console.log(`Choose group name: ${action[0]} by ${ctx.update.message.from.id}`);
+        console.log(`Choose group name: ${action[0]} by ${ctx.update.callback_query.from.id}`);
         let scheduleItems = await Schedule.getSchedule({groupName: action[0]});
         if (!scheduleItems) {
             await ctx.reply('Немає розкладу для цієї групи', {

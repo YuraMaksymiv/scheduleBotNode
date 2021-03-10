@@ -7,7 +7,7 @@ const {User} = require('../../../lib/database');
 
 async function sendMenu (ctx) {
     let keyboard = [["Ваш розклад"], ["Вибрати групу"], ["Показати розклад для групи"]];
-    let user = await User.getUser(ctx.update.message.id);
+    let user = await User.getUser(ctx.update.message.from.id);
     if(user.userType === "monitor") keyboard.unshift(['Старостам']);
     ctx.reply("Виберіть команду:", {
         "reply_markup": {

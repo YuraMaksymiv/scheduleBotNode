@@ -51,30 +51,13 @@ module.exports = {
 
     setGroup: async (ctx, next) => {
         log.info(`Press /setGroup by ${ctx.update.message.from.id}`);
-        let groups = await Group.getGroups();
-        let sections = [];
-        groups.forEach(function (i) {
-            sections.push({
-                text: i.section,
-                callback_data: i.section + "_section_save"
-            });
-        });
-        const opts = {
-            reply_markup: {
-                inline_keyboard: [
-                    sections
-                ]
-            }
-        };
-        ctx.reply('Виберіть інститут:', opts);
-        return next();
+        return await next();
     },
 
     mySchedule: async (ctx) => {
         log.info(`Press /see by ${ctx.update.message.from.id}`);
         let user = await User.getUser(ctx.update.message.from.id);
         if (!user || !user.groupsName) {
-            // await bot.sendMessage(msg.chat.id, "You haven't selected your group yet. Please, choose /setGroup to select");
             ctx.reply("Ви ще не обрали вашу групу", {
                 "reply_markup": {
                     "keyboard": [["Вибрати групу:"]],
@@ -115,45 +98,11 @@ module.exports = {
 
     chooseDay: async (ctx, next) => {
         log.info(`Press /chooseDay by ${ctx.update.message.from.id}`);
-        let days = [];
-        for (let i = 0; i < 5; i++) {
-            let day = {text: list.dayNames[i], callback_data: list.dayNames[i] + "_day"};
-            days.push(day);
-        }
-
-        let row1 = days.slice(0, 2);
-        let row2 = days.slice(2, days.length);
-        days = [row1, row2];
-
-        const opts = {
-            reply_markup: {
-                inline_keyboard: days
-            }
-        };
-        ctx.reply('Виберіть день:', opts);
-
         return next();
     },
 
     getScheduleTo: async (ctx, next) => {
         log.info(`Press /getScheduleTo by ${ctx.update.message.from.id}`);
-        let groups = await Group.getGroups();
-        let sections = [];
-        groups.forEach(function (i) {
-            sections.push({
-                text: i.section,
-                callback_data: i.section + "_section_get"
-            });
-        });
-        const opts = {
-            reply_markup: {
-                inline_keyboard: [
-                    sections
-                ]
-            }
-        };
-        ctx.reply('Виберіть інститут:', opts);
-
         return next();
     }
 }
