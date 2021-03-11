@@ -1,4 +1,5 @@
 const context = require('../../app');
+const {User} = require('../../lib/database');
 
 module.exports = async (req, res) => {
     req.log.info(`Start sendNotificationToGroup controller.`);
@@ -12,8 +13,8 @@ module.exports = async (req, res) => {
         }
         notification += "\nНадіслано адміністратором";
 
-        let users = await req.mongoConnection.getUsersForGroup(group);
-        
+        let users = await User.getUsersForGroup(group);
+
         if(!users || !users.length) {
             req.log.error(`Failed to find users for current group`);
             let err = new Error('Failed to find users for current group');

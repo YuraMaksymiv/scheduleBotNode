@@ -1,8 +1,9 @@
+const {Group} = require('../../lib/database');
 
 module.exports = async (req, res) => {
     req.log.info(`Start getAllGroups controller.`);
     try {
-        let groups = await req.mongoConnection.getGroups();
+        let groups = await Group.getGroups();
 
         res.json(groups);
 

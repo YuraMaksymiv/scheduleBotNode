@@ -1,8 +1,9 @@
+const {Schedule} = require('../../lib/database');
 
 module.exports = async (req, res) => {
     req.log.info(`Start updateSchedule controller.`);
     try {
-        let schedule = await req.mongoConnection.updateSchedule(req.body.schedule);
+        let schedule = await Schedule.updateSchedule(req.body.schedule);
         res.json({
             code: 200,
             data: schedule

@@ -1,4 +1,5 @@
 const context = require('../../app');
+const {User} = require('../../lib/database');
 
 module.exports = async (req, res) => {
     req.log.info(`Start sendNotificationToUser controller.`);
@@ -13,7 +14,7 @@ module.exports = async (req, res) => {
             throw err;
         }
 
-        let user = await req.mongoConnection.getUser(userId);
+        let user = await User.getUser(userId);
 
         if(!user) {
             req.log.error(`Failed to find user`);

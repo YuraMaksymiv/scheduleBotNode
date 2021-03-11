@@ -1,5 +1,6 @@
 const tokinazer = require('../../lib/tokinazer');
 const bcrypt = require('bcrypt');
+const {User} = require('../../lib/database');
 
 module.exports = async (req, res) => {
     req.log.info(`Start login controller.`);
@@ -12,7 +13,7 @@ module.exports = async (req, res) => {
             throw err;
         }
 
-        let user = await req.mongoConnection.getUser({username: username});
+        let user = await User.getUser({username: username});
         if(!user) {
             req.log.error(`Wrong username`);
             let err = new Error('Wrong username');

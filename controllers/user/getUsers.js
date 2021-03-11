@@ -1,3 +1,4 @@
+const {User} = require('../../lib/database');
 
 module.exports = async (req, res) => {
     req.log.info(`Start getUsers controller.`);
@@ -45,7 +46,7 @@ module.exports = async (req, res) => {
 
         if(!filter.$and.length) filter = {};
 
-        let users = await req.mongoConnection.getUsers(perPage, page, filter, sort);
+        let users = await User.getUsers(perPage, page, filter, sort);
         if(users && users.length) {
             for (let i = 0; i < users.length; i++) {
                 if(users[i].password) delete users[i].password;

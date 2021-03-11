@@ -1,4 +1,5 @@
 const bcrypt = require('bcrypt');
+const {User} = require('../../lib/database');
 
 module.exports = async (req, res) => {
     req.log.info(`Start register controller.`);
@@ -11,7 +12,7 @@ module.exports = async (req, res) => {
             throw err;
         }
 
-        let user = await req.mongoConnection.getUser({username: username});
+        let user = await User.getUser({username: username});
         if(!user) {
             req.log.error(`User with this username not exists`);
             let err = new Error('User with this username not exists');
@@ -24,7 +25,7 @@ module.exports = async (req, res) => {
             if (err) {
                 console.log(err);
             } else {
-                await req.mongoConnection.updateUserByFilter({username: user.username}, {password: hash, userType: "admin"})
+                await User.updateUserByFilter({username: user.username}, {password: hash, userType: "admin"})
             }
         });
 

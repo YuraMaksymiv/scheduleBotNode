@@ -1,3 +1,4 @@
+const {User} = require('../../lib/database');
 const types = ["admin", "monitor"];
 
 module.exports = async (req, res) => {
@@ -12,7 +13,7 @@ module.exports = async (req, res) => {
             throw err;
         }
 
-        let user = await req.mongoConnection.getUser(userId);
+        let user = await User.getUser(userId);
 
         if(!user) {
             req.log.error(`Failed to find user`);
@@ -29,11 +30,11 @@ module.exports = async (req, res) => {
                 throw err;
             }
 
-            let currentMonitor = await req.mongoConnection.getUser({$and: [{userType: "monitor"}, {groupsName: user.groupsName}]});
-            if (currentMonitor) await req.mongoConnection.updateUserByFilter({userId: currentMonitor.userId}, {userType: ""});
+            let currentMonitor = await User.getUser({$and: [{userType: "monitor"}, {groupsName: user.groupsName}]});
+            if (currentMonitor) await User.updateUserByFilter({userId: currentMonitor.userId}, {userType: ""});
         }
 
-        let updated = await req.mongoConnection.updateUserByFilter(userId, {userType: type});
+        let updated = await User.updateUserByFilter(userId, {userType: type});
 
         res.json(updated);
 

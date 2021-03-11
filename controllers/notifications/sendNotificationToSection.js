@@ -1,4 +1,5 @@
 const context = require('../../app');
+const {User} = require('../../lib/database');
 
 module.exports = async (req, res) => {
     req.log.info(`Start sendNotificationToSection controller.`);
@@ -12,7 +13,7 @@ module.exports = async (req, res) => {
         }
         notification += "\nНадіслано адміністратором";
 
-        let users = await req.mongoConnection.getUsersByFilter({section: section});
+        let users = await User.getUsersByFilter({section: section});
 
         if(!users || !users.length) {
             req.log.error(`Failed to find users for current section`);

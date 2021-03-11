@@ -1,18 +1,15 @@
 const express = require('express');
 const app = express();
-const mongoFunction = require("./lib/mongo-util");
 const mongoConnector = require("./lib/database/connector");
 const logger = require('./lib/logger.js');
 const botFunction = require('./lib/bot');
-let mongoConnection, mongoConnectionNew, log, bot, socket;
+let mongoConnection, log, bot;
 
 (async () => {
     log = await logger();
     log.info("Logger ready");
-    mongoConnectionNew = await mongoConnector();
+    mongoConnection = await mongoConnector();
     log.info("Mongo new ready");
-    // mongoConnection = await mongoFunction();
-    // log.info("Mongo ready");
     bot = await botFunction();
     log.info("Bot ready");
     app.listen(3000, err => {
@@ -35,7 +32,6 @@ app.use(function (req, res, next) {
 const ApiRouter = require('./routes/API-Router');
 
 app.use(function (req, res, next) {
-    req.mongoConnection = mongoConnection;
     req.log = log;
     next();
 });

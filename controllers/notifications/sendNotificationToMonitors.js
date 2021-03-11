@@ -1,4 +1,5 @@
 const context = require('../../app');
+const {User} = require('../../lib/database');
 
 module.exports = async (req, res) => {
     req.log.info(`Start sendNotificationToMonitors controller.`);
@@ -12,7 +13,7 @@ module.exports = async (req, res) => {
         }
         notification += "\nНадіслано адміністратором";
 
-        let users = await req.mongoConnection.getUsersByFilter({$and: [{section: section}, {userType: "monitor"}]});
+        let users = await User.getUsersByFilter({$and: [{section: section}, {userType: "monitor"}]});
 
         if(!users || !users.length) {
             req.log.error(`Failed to find monitors for current section`);
