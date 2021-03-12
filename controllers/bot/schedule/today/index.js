@@ -22,10 +22,6 @@ const todayWizard = new WizardScene('today',
         console.log(`Press /today by ${ctx.update.message.from.id}`);
         let day = new Date().getDay();
         day === 0 ? day = 6 : --day;
-        let week = new Date().getWeek();
-        week = 7;
-        if (week === 1 || week % 2 !== 0) week = 0;
-        else week = 1;
 
         if (day === 5 || day === 6) day = 0;
         let dayName = list.dayNames[day];
@@ -47,7 +43,7 @@ const todayWizard = new WizardScene('today',
             let dayLessonsString = "";
             scheduleItems.lesson.forEach(function (l) {
                 let str;
-                str = `${l.numberOfLesson}. ${l.nameOfLesson[week].lessonName} (${l.time})\n`;
+                str = `${l.numberOfLesson}. ${l.nameOfLesson[0].lessonName} (${l.time})\n`;
                 dayLessonsString += str;
             });
             await ctx.reply(`Група: ${user.groupsName}\n ${scheduleItems.day} \n${dayLessonsString}`);
