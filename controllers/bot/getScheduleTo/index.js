@@ -50,28 +50,28 @@ const getScheduleToWizard = new WizardScene('getScheduleTo',
             };
             groupsToSection.push(a);
         });
-        if (groupsToSection.length >= 4 && groupsToSection.length < 8) {
+        if (groupsToSection.length > 4 && groupsToSection.length <= 8) {
             let row1 = groupsToSection.slice(0, 4);
             let row2 = groupsToSection.slice(4, groupsToSection.length);
             groupsToSection = [row1, row2];
-        } else if (groupsToSection.length >= 8 && groupsToSection.length < 12) {
+        } else if (groupsToSection.length > 8 && groupsToSection.length <= 12) {
             let row1 = groupsToSection.slice(0, 4);
             let row2 = groupsToSection.slice(4, 8);
             let row3 = groupsToSection.slice(8, groupsToSection.length);
             groupsToSection = [row1, row2, row3];
-        } else if (groupsToSection.length >= 12 && groupsToSection.length < 16) {
+        } else if (groupsToSection.length > 12 && groupsToSection.length <= 16) {
             let row1 = groupsToSection.slice(0, 4);
             let row2 = groupsToSection.slice(4, 8);
             let row3 = groupsToSection.slice(8, 12);
             let row4 = groupsToSection.slice(12, groupsToSection.length);
             groupsToSection = [row1, row2, row3, row4];
-        } else if (groupsToSection.length >= 16) {
+        } else if (groupsToSection.length > 16) {
             let row1 = groupsToSection.slice(0, 4);
             let row2 = groupsToSection.slice(4, 8);
             let row3 = groupsToSection.slice(8, 12);
             let row4 = groupsToSection.slice(12, 16);
             let row5 = groupsToSection.slice(16, groupsToSection.length);
-            groupsToSection = [row1, row2, row3, row4], row5;
+            groupsToSection = [row1, row2, row3, row4, row5];
         } else groupsToSection = [groupsToSection];
 
         const opts = {
@@ -102,22 +102,22 @@ const getScheduleToWizard = new WizardScene('getScheduleTo',
                 })
             }
         });
-        if (groupsNames.length >= 4 && groupsNames.length < 8) {
+        if (groupsNames.length > 4 && groupsNames.length <= 8) {
             let row1 = groupsNames.slice(0, 4);
             let row2 = groupsNames.slice(4, groupsNames.length);
             groupsNames = [row1, row2];
-        } else if (groupsNames.length >= 8 && groupsNames.length < 12) {
+        } else if (groupsNames.length > 8 && groupsNames.length <= 12) {
             let row1 = groupsNames.slice(0, 4);
             let row2 = groupsNames.slice(4, 8);
             let row3 = groupsNames.slice(8, groupsNames.length);
             groupsNames = [row1, row2, row3];
-        } else if (groupsNames.length >= 12 && groupsNames.length < 16) {
+        } else if (groupsNames.length > 12 && groupsNames.length <= 16) {
             let row1 = groupsNames.slice(0, 4);
             let row2 = groupsNames.slice(4, 8);
             let row3 = groupsNames.slice(8, 12);
             let row4 = groupsNames.slice(12, groupsNames.length);
             groupsNames = [row1, row2, row3, row4];
-        } else if (groupsNames.length >= 16) {
+        } else if (groupsNames.length > 16) {
             let row1 = groupsNames.slice(0, 4);
             let row2 = groupsNames.slice(4, 8);
             let row3 = groupsNames.slice(8, 12);
@@ -132,7 +132,7 @@ const getScheduleToWizard = new WizardScene('getScheduleTo',
             }
         };
         ctx.reply('Виберіть групу:', opts);
-
+        console.log(groupsNames);
         return ctx.wizard.next();
     },
     async (ctx) => {
@@ -157,7 +157,7 @@ const getScheduleToWizard = new WizardScene('getScheduleTo',
                 let j = scheduleItems.days[i];
                 let dayLessonsString = "";
                 j.lesson.forEach(function (l) {
-                    let str = `${l.numberOfLesson}. ${l.nameOfLesson[0].lessonName} (${l.time})\n`;
+                    let str = `${l.numberOfLesson}. ${l.nameOfLesson} (${l.time})\n`;
 
                     dayLessonsString += str;
                 });

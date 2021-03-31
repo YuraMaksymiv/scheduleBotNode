@@ -123,12 +123,10 @@ const myScheduleWizard = new WizardScene('mySchedule',
         let usersGroup = {
             section: action[3],
             group: action[2],
-            subGroupsName: action[0]
+            groupsName: action[0]
         };
 
         console.log(`Save group name: ${action[0]} by ${ctx.update.message.from.id}`);
-        let mainGroup = await Group.getMainGroup(usersGroup.section, usersGroup.group, usersGroup.subGroupsName);
-        usersGroup.groupsName = mainGroup;
         await User.updateUserGroup(ctx.update.message.from.id, usersGroup);
         await ctx.reply('Готово', {
             "reply_markup": {

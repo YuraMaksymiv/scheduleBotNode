@@ -1,4 +1,3 @@
-const excelToJson = require('convert-excel-to-json');
 const importClient = require('../../lib/import-util');
 const {Schedule, Group} = require('../../lib/database');
 
@@ -15,10 +14,8 @@ module.exports = async (req, res) => {
             throw err;
         }
 
-        let importedGroups = await importClient.importGroupsList(section, file);
-        let importedSchedule = await importClient.importSchedule(file);
-
-        if(!importedGroups || !importedSchedule) {
+        const importedGroups = await importClient.importGroupsList(section, file);
+        if(!importedGroups) {
             req.log.error(`Failed file importing`);
             let err = new Error('Failed file importing');
             err.code = 400;
@@ -28,10 +25,18 @@ module.exports = async (req, res) => {
         //save groups names in db
         await Group.updateGroup(importedGroups);
 
-        //save schedule in db
-        for (const key in importedSchedule) {
-            await Schedule.updateSchedule(importedSchedule[key])
-        }
+        // const importedSchedule = await importClient.importSchedule(file);
+        // if(!importedSchedule) {
+        //     req.log.error(`Failed file importing`);
+        //     let err = new Error('Failed file importing');
+        //     err.code = 400;
+        //     throw err;
+        // }
+        //
+        // // save schedule in db
+        // for (const key in importedSchedule) {
+        //     await Schedule.updateSchedule(importedSchedule[key])
+        // }
 
         return res.json(true);
     } catch (e) {

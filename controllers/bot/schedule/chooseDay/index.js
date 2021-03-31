@@ -60,7 +60,7 @@ const chooseDayWizard = new WizardScene('chooseDay',
 
             let dayLessonsString = "";
             scheduleItems.lesson.forEach(function (l) {
-                let str = `${l.numberOfLesson}. ${l.nameOfLesson[0].lessonName} (${l.time})\n`;
+                let str = `${l.numberOfLesson}. ${l.nameOfLesson} (${l.time})\n`;
 
                 dayLessonsString += str;
             });

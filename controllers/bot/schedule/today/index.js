@@ -43,7 +43,7 @@ const todayWizard = new WizardScene('today',
             let dayLessonsString = "";
             scheduleItems.lesson.forEach(function (l) {
                 let str;
-                str = `${l.numberOfLesson}. ${l.nameOfLesson[0].lessonName} (${l.time})\n`;
+                str = `${l.numberOfLesson}. ${l.nameOfLesson} (${l.time})\n`;
                 dayLessonsString += str;
             });
             await ctx.reply(`Група: ${user.groupsName}\n ${scheduleItems.day} \n${dayLessonsString}`);

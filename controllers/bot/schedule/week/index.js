@@ -34,7 +34,7 @@ const weekWizard = new WizardScene('week',
                 let j = scheduleItems.days[i];
                 let dayLessonsString = "";
                 j.lesson.forEach(function (l) {
-                    let str = `${l.numberOfLesson}. ${l.nameOfLesson[0].lessonName} (${l.time})\n`;
+                    let str = `${l.numberOfLesson}. ${l.nameOfLesson} (${l.time})\n`;
 
                     dayLessonsString += str;
                 });
