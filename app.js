@@ -13,7 +13,7 @@ let mongoConnection, log, bot;
     bot = await botFunction();
     log.info("Bot ready");
     app.listen(3010, err => {
-        err ? console.log(err) : console.log('Listening 3000...');
+        err ? console.log(err) : console.log('Listening 3010...');
     });
     module.exports.bot = bot;
 })();
