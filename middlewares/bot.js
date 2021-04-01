@@ -51,6 +51,13 @@ module.exports = {
 
     setGroup: async (ctx, next) => {
         log.info(`Press /setGroup by ${ctx.update.message.from.id}`);
+        ctx.reply("Оберіть свою групу", {
+            "reply_markup": {
+                "keyboard": [["Меню"]],
+                "one_time_keyboard": false,
+                "resize_keyboard": true
+            }
+        });
         return await next();
     },
 
@@ -98,11 +105,25 @@ module.exports = {
 
     chooseDay: async (ctx, next) => {
         log.info(`Press /chooseDay by ${ctx.update.message.from.id}`);
+        ctx.reply("Розклад для дня", {
+            "reply_markup": {
+                "keyboard": [["Меню"]],
+                "one_time_keyboard": false,
+                "resize_keyboard": true
+            }
+        });
         return next();
     },
 
     getScheduleTo: async (ctx, next) => {
         log.info(`Press /getScheduleTo by ${ctx.update.message.from.id}`);
+        ctx.reply("Розклад для групи", {
+            "reply_markup": {
+                "keyboard": [["Меню"]],
+                "one_time_keyboard": false,
+                "resize_keyboard": true
+            }
+        });
         return next();
     }
 }

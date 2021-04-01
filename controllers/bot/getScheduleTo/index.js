@@ -132,7 +132,6 @@ const getScheduleToWizard = new WizardScene('getScheduleTo',
             }
         };
         ctx.reply('Виберіть групу:', opts);
-        console.log(groupsNames);
         return ctx.wizard.next();
     },
     async (ctx) => {
